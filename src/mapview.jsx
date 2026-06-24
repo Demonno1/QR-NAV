@@ -1,6 +1,6 @@
 import mapImage from "./assets/admin-campus.jpg";
 import ntpcLogo from "./assets/logo.png";
-
+import googleMapsLogo from "./assets/google-maps.jpeg";
 function MapView({ destination, onBack }) {
 
   const routes = {
@@ -173,7 +173,22 @@ function MapView({ destination, onBack }) {
     ]
 
   };
-
+const googleMapsLinks = {
+  admin1: "https://maps.google.com/?q=17.694123,83.012345",
+  admin2: "https://maps.google.com/?q=17.694456,83.012678",
+  Documentation: "https://maps.google.com/?q=17.694789,83.013000",
+  it: "https://maps.google.com/?q=17.695000,83.013200",
+  parking1: "https://maps.google.com/?q=17.695300,83.013500",
+  parking2: "https://maps.google.com/?q=17.695600,83.013800"
+};
+const displayNames = {
+  Samanvay: "Samanvay",
+  Saavyas: "Saavyas",
+  Documentation: "Documentation",
+  IT: "IT & Communications",
+  p1: "Parking 1",
+  p2: "Parking 2"
+};
   const selectedRoute = routes[destination] || [];
 
   const routePoints = selectedRoute
@@ -197,10 +212,24 @@ function MapView({ destination, onBack }) {
           className="ntpc-logo"
         />
 
-        <h1>NTPC Simhadri Navigation</h1>
+        <h1 className="navigation-title">
+  NTPC Simhadri Navigation
+</h1>
 
         <h3>
-          {destination}
+          <button
+  className="maps-btn"
+  onClick={() =>
+    window.open(googleMapsLinks[destination], "_blank")
+  }
+>
+  <img
+    src={googleMapsLogo}
+    alt="Google Maps"
+    className="maps-icon"
+  />
+  Open in Google Maps
+</button>
         </h3>
       </div>
 
@@ -226,14 +255,7 @@ function MapView({ destination, onBack }) {
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          {selectedRoute.length > 0 && (
-          <circle
-            cx={selectedRoute[selectedRoute.length - 1][0]}
-            cy={selectedRoute[selectedRoute.length - 1][1]}
-             r="12"
-             fill="red"
-          />
-)}
+
         </svg>
 
       </div>

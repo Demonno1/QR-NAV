@@ -150,4 +150,56 @@
 }
 
 
+.maps-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    font-size: 16px;
+}
 
+.maps-btn:hover {
+    opacity: 0.9;
+}
+
+.maps-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  background: white;
+  color: #333;
+
+  border: 2px solid #ddd;
+  border-radius: 12px;
+
+  padding: 12px 20px;
+  margin-top: 10px;
+
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+
+  transition: all 0.2s ease;
+}
+
+.maps-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.maps-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.navigation-title {
+    color: #007bff; 
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
