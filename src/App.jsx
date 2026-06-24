@@ -10,10 +10,15 @@ function App() {
       id: "admin1",
       name: "Samanvay",
       icon: "🏢",
-    },
+    }, 
     {
       id: "admin2",
-      name: "Main Administration",
+      name: "Saavyas",
+      icon: "🏢",
+    },
+    {
+      id: "Documentation",
+      name: "Documentation",
       icon: "🏢",
     },
     {
