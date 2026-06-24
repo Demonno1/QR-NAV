@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import MapView from "./MapView";
+import ntpcLogo from "./assets/logo.png";
 
 function App() {
   const [destination, setDestination] = useState(null);
@@ -50,7 +51,11 @@ function App() {
   return (
     <div className="app">
       <div className="container">
-        
+        <img
+  src={ntpcLogo}
+  alt="NTPC Logo"
+  className="ntpc-logo"
+/>
         <h1>NTPC Navigation</h1>
 
         <div className="tiles">

@@ -174,12 +174,12 @@ function MapView({ destination, onBack }) {
 
   };
 const googleMapsLinks = {
-  admin1: "https://maps.google.com/?q=17.694123,83.012345",
-  admin2: "https://maps.google.com/?q=17.694456,83.012678",
-  Documentation: "https://maps.google.com/?q=17.694789,83.013000",
-  it: "https://maps.google.com/?q=17.695000,83.013200",
-  parking1: "https://maps.google.com/?q=17.695300,83.013500",
-  parking2: "https://maps.google.com/?q=17.695600,83.013800"
+  admin1: "https://maps.app.goo.gl/ET39rTrLQ4ucsDDa7",
+  admin2: "https://maps.app.goo.gl/VkijMFdoELqpQE4o7",
+  Documentation: "https://maps.app.goo.gl/9sd4m5LiLLoPBay18",
+  it: "https://maps.app.goo.gl/eDtMxhgdPuyAfqBZA",
+  parking1: "https://maps.app.goo.gl/5r3w1qjrFVjMHC668",
+  parking2: "https://maps.app.goo.gl/gEkSHRahBy1sNRYy5"
 };
 const displayNames = {
   Samanvay: "Samanvay",
@@ -250,7 +250,7 @@ const displayNames = {
           <polyline
             points={routePoints}
             fill="none"
-            stroke="#00ff84"
+            stroke="#0004ff"
             strokeWidth="10"
             strokeLinecap="round"
             strokeLinejoin="round"

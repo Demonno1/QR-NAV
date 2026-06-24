@@ -1,169 +1,218 @@
-.map-page{
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
+}
+
+/* HOME PAGE */
+
+body{
     min-height:100vh;
-    background:white;
-    padding:20px;
-    text-align:center;
 }
 
-.back-btn{
-    padding:12px 20px;
-    border:none;
-    border-radius:10px;
-    background:#007bff;
-    color:white;
-    cursor:pointer;
-    margin-bottom:20px;
+#root{
+    min-height:100vh;
 }
 
-.map-wrapper{
-    width:100%;
+.app{
+    min-height:100vh;
+
     display:flex;
     justify-content:center;
-}
+    align-items:center;
 
-.map-image{
-    width:90%;
-    max-width:1200px;
-    cursor:crosshair;
-    border-radius:12px;
-}
-.map-page{
-    min-height:100vh;
-    background:white;
     padding:20px;
+
+    background:linear-gradient(
+        135deg,
+        #0f172a,
+        #1e3a8a,
+        #0ea5e9
+    );
 }
 
-.map-wrapper{
-    position:relative;
-    width:100%;
-    max-width:1400px;
-    margin:auto;
-}
+.container{
+    width:550px;
 
-.map-image{
-    width:100%;
-    display:block;
-    border-radius:16px;
-}
+    background:rgba(255,255,255,0.12);
 
-.route-overlay{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    pointer-events:none;
-}
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
 
-.back-btn{
-    background:#007BFF;
+    border:1px solid rgba(255,255,255,0.2);
+
+    border-radius:30px;
+
+    padding:35px;
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,0.25);
+
     color:white;
-    border:none;
-    padding:12px 20px;
-    border-radius:10px;
-    cursor:pointer;
-    margin-bottom:20px;
 }
-.map-page{
-    min-height:100vh;
-    background:white;
-    padding:20px;
+
+.container h1{
     text-align:center;
-}
-
-.back-btn{
-    padding:10px 20px;
-    margin-bottom:20px;
-    border:none;
-    border-radius:10px;
-    background:#007bff;
+    margin-bottom:25px;
     color:white;
+}
+
+.tiles{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.tile{
+    background:rgba(255,255,255,0.15);
+
+    border:1px solid rgba(255,255,255,0.2);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    text-align:center;
+
     cursor:pointer;
+
+    transition:0.3s;
 }
 
-.map-wrapper{
-    position:relative;
-    width:100%;
-    max-width:1400px;
-    margin:auto;
+.tile:hover{
+    transform:translateY(-5px);
+
+    background:rgba(255,255,255,0.25);
 }
 
-.map-image{
-    width:100%;
-    display:block;
+.icon{
+    font-size:2.5rem;
+    margin-bottom:10px;
 }
 
-.route-overlay{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    pointer-events:none;
+.tile h3{
+    color:white;
 }
+
+/* MAP PAGE */
+
 .map-page{
     min-height:100vh;
-    background:white;
+
     padding:20px;
+
+    background:linear-gradient(
+        135deg,
+        #0f172a,
+        #1e3a8a,
+        #0ea5e9
+    );
 }
 
 .back-btn{
-    background:#007bff;
+    background:rgba(255,255,255,0.15);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,0.2);
+
     color:white;
-    border:none;
-    padding:10px 20px;
-    border-radius:10px;
+
+    padding:12px 20px;
+
+    border-radius:15px;
+
     cursor:pointer;
+
     margin-bottom:20px;
+
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:rgba(255,255,255,0.25);
 }
 
 .header{
-    text-align:center;
+
+    background:rgba(255,255,255,0.12);
+
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,0.2);
+
+    border-radius:25px;
+
+    padding:20px;
+
     margin-bottom:20px;
+
+    text-align:center;
+
+    color:white;
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,0.25);
 }
 
 .ntpc-logo{
     width:120px;
     display:block;
-    margin:auto;
+    margin:auto auto 10px auto;
+}
+
+.header h1{
+    color:white;
+    margin-bottom:5px;
+}
+
+.header h3{
+    color:white;
+    opacity:0.8;
 }
 
 .map-wrapper{
     position:relative;
-    width:100%;
+
     max-width:1400px;
     margin:auto;
+
+    background:rgba(255,255,255,0.12);
+
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,0.2);
+
+    border-radius:25px;
+
+    padding:15px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,0.25);
 }
 
 .map-image{
     width:100%;
     display:block;
+    border-radius:15px;
 }
 
 .route-overlay{
     position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+
+    top:15px;
+    left:15px;
+
+    width:calc(100% - 30px);
+    height:calc(100% - 30px);
+
     pointer-events:none;
-}
-
-
-.maps-btn {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    margin-left: 10px;
-    font-size: 16px;
-}
-
-.maps-btn:hover {
-    opacity: 0.9;
 }
 
 .maps-btn {
