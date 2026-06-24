@@ -192,9 +192,9 @@ const displayNames = {
   const selectedRoute = routes[destination] || [];
 
   const routePoints = selectedRoute
-    .map(([x, y]) => `${x},${y}`)
-    .join(" ");
-
+  .filter(point => Array.isArray(point) && point.length === 2)
+  .map(([x, y]) => `${x},${y}`)
+  .join(" ");
   return (
     <div className="map-page">
 
@@ -241,23 +241,22 @@ const displayNames = {
           className="map-image"
         />
 
-        <svg
-          className="route-overlay"
-          viewBox="0 0 1400 1000"
-          preserveAspectRatio="none"
-        >
-
-          <polyline
-            points={routePoints}
-            fill="none"
-            stroke="#0004ff"
-            strokeWidth="10"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-
-        </svg>
-
+       <svg
+  className="route-overlay"
+  viewBox="0 0 1400 1000"
+  preserveAspectRatio="none"
+>
+  <polyline
+    key={destination}
+    className="route-path"
+    points={routePoints}
+    fill="none"
+    stroke="#007BFF"
+    strokeWidth="12"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  />
+</svg>
       </div>
 
     </div>

@@ -56,7 +56,9 @@ function App() {
   alt="NTPC Logo"
   className="ntpc-logo"
 />
-        <h1>NTPC Navigation</h1>
+        <h1 className="navigation-title">
+  NTPC Simhadri Navigation
+</h1>
 
         <div className="tiles">
           {locations.map((loc) => (
