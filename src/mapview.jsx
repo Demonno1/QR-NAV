@@ -190,7 +190,32 @@ const displayNames = {
   p2: "Parking 2"
 };
   const selectedRoute = routes[destination] || [];
+  const departments = {
 
+  admin1: [
+    "Department 1",
+    "Department 2",
+    "Department 3"
+  ],
+
+  admin2: [
+    "Department 1",
+    "Department 2"
+  ],
+
+  Documentation: [
+    "Department 1"
+  ],
+
+  it: [
+    "Department 1",
+    "Department 2"
+  ],
+
+  parking1: [],
+
+  parking2: []
+};
   const routePoints = selectedRoute
   .filter(point => Array.isArray(point) && point.length === 2)
   .map(([x, y]) => `${x},${y}`)
@@ -258,7 +283,17 @@ const displayNames = {
   />
 </svg>
       </div>
+    <div className="departments-section">
 
+  <h2>Departments</h2>
+
+  <ul className="department-list">
+    {departments[destination]?.map((dept, index) => (
+      <li key={index}>{dept}</li>
+    ))}
+  </ul>
+
+</div>
     </div>
   );
 }
