@@ -1,24 +1,111 @@
+
 import mapImage from "./assets/admin-campus.jpg";
+import ntpcLogo from "./assets/logo.png";
 
-function MapView({ onBack }) {
+function MapView({ destination, onBack }) {
 
-  const handleClick = (e) => {
-    const rect = e.target.getBoundingClientRect();
+  const routes = {
 
-    const x = Math.round(
-      ((e.clientX - rect.left) / rect.width) * 1400
-    );
+    admin1: [
+      [755,151],
+[756,178],
+[758,206],
 
-    const y = Math.round(
-      ((e.clientY - rect.top) / rect.height) * 1000
-    );
+[759,219],
+[762,226],
+[766,234],
 
-    console.log(`${x},${y}`);
+[771,239],
+[776,243],
 
-    alert(
-      `X = ${x}\nY = ${y}`
-    );
+[786,248],
+[796,252],
+
+[800,254],
+[803,255],
+
+[806,264],
+[810,273],
+
+[812,286],
+[814,298],
+
+[815,305],
+[815,312],
+
+[813,325],
+[811,338],
+[807,350],
+
+[802,357],
+[796,364],
+
+[783,373],
+[770,381],
+
+[758,380],
+[745,378]
+    ],
+
+    admin2: [
+      [757,148],
+[759,204],
+[768,221],
+[781,237],
+[828,251],
+[834,256],
+[863,256],
+[993,261]
+    ],
+
+    it: [
+      [714,376],
+[682,367],
+[666,338],
+[663,330],
+[656,304],
+[642,299],
+[630,273],
+[606,254],
+[588,245],
+[567,235],
+[517,235],
+[512,229],
+[512,245]
+    ],
+
+    parking1: [
+      [757,179],
+[756,201],
+[759,220],
+[784,250],
+[808,269],
+[821,296],
+[816,336],
+[820,358],
+[816,404],
+[814,442],
+[814,445],
+[814,482],
+[815,534],
+[814,537],
+[814,549],
+[837,590],
+[870,604],
+[868,627]
+    ],
+
+    parking2: [
+      // PASTE_POINTS_HERE
+    ]
+
   };
+
+  const selectedRoute = routes[destination] || [];
+
+  const routePoints = selectedRoute
+    .map(([x, y]) => `${x},${y}`)
+    .join(" ");
 
   return (
     <div className="map-page">
@@ -30,9 +117,19 @@ function MapView({ onBack }) {
         ← Back
       </button>
 
-      <h2>
-        Click on any point to get coordinates
-      </h2>
+      <div className="header">
+        <img
+          src={ntpcLogo}
+          alt="NTPC Logo"
+          className="ntpc-logo"
+        />
+
+        <h1>NTPC Simhadri Navigation</h1>
+
+        <h3>
+          {destination}
+        </h3>
+      </div>
 
       <div className="map-wrapper">
 
@@ -40,8 +137,24 @@ function MapView({ onBack }) {
           src={mapImage}
           alt="Campus Map"
           className="map-image"
-          onClick={handleClick}
         />
+
+        <svg
+          className="route-overlay"
+          viewBox="0 0 1400 1000"
+          preserveAspectRatio="none"
+        >
+
+          <polyline
+            points={routePoints}
+            fill="none"
+            stroke="#00ff84"
+            strokeWidth="10"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+
+        </svg>
 
       </div>
 
