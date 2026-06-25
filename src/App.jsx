@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import MapView from "./mapview";
 import ntpcLogo from "./assets/logo.png";
@@ -12,6 +12,17 @@ import {
 function App() {
   const [destination, setDestination] = useState(null);
   const [theme, setTheme] = useState("dark");
+  useEffect(() => {
+  const handleBack = () => {
+    setDestination(null);
+  };
+
+  window.addEventListener("popstate", handleBack);
+
+  return () => {
+    window.removeEventListener("popstate", handleBack);
+  };
+}, []);
   const locations = [
     {
       id: "admin1",
@@ -44,12 +55,23 @@ function App() {
       icon: <FaCar />,
     },
   ];
+  useEffect(() => {
+  const handleBack = () => {
+    setDestination(null);
+  };
+
+  window.addEventListener("popstate", handleBack);
+
+  return () => {
+    window.removeEventListener("popstate", handleBack);
+  };
+}, []);
 
   if (destination) {
     return (
       <MapView
     destination={destination}
-    onBack={() => setDestination(null)}
+    onBack={() => window.history.back()}
     theme={theme}
     setTheme={setTheme}
 />
@@ -85,7 +107,10 @@ function App() {
             <div
               key={loc.id}
               className="tile"
-              onClick={() => setDestination(loc.id)}
+              onClick={() => {
+                window.history.pushState({}, "");
+                setDestination(loc.id);
+          }}
               style={{ animationDelay: `${0.2 + index * 0.1}s`, opacity: 0, animation: `fadeUp 0.6s ease-out forwards ${0.2 + index * 0.1}s` }}
             >
               <div className="icon">{loc.icon}</div>
