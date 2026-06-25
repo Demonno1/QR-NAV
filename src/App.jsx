@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import MapView from "./MapView";
+import MapView from "./mapview";
 import ntpcLogo from "./assets/logo.png";
 
 function App() {
@@ -20,11 +20,11 @@ function App() {
     {
       id: "Documentation",
       name: "Documentation",
-      icon: "🏢",
+      icon: "📑",
     },
     {
       id: "it",
-      name: "IT & Communications",
+      name: "IT & Comm.",
       icon: "💻",
     },
     {
@@ -51,21 +51,26 @@ function App() {
   return (
     <div className="app">
       <div className="container">
-        <img
-  src={ntpcLogo}
-  alt="NTPC Logo"
-  className="ntpc-logo"
-/>
+        <div className="logo-container">
+          <img
+            src={ntpcLogo}
+            alt="NTPC Logo"
+            className="ntpc-logo"
+          />
+        </div>
         <h1 className="navigation-title">
-  NTPC Simhadri Navigation
-</h1>
+          NTPC Simhadri Navigation
+           
+        </h1>
+        <h1 className="navigation-title">Administration Block</h1>
 
         <div className="tiles">
-          {locations.map((loc) => (
+          {locations.map((loc, index) => (
             <div
               key={loc.id}
               className="tile"
               onClick={() => setDestination(loc.id)}
+              style={{ animationDelay: `${0.2 + index * 0.1}s`, opacity: 0, animation: `fadeUp 0.6s ease-out forwards ${0.2 + index * 0.1}s` }}
             >
               <div className="icon">{loc.icon}</div>
               <h3>{loc.name}</h3>
