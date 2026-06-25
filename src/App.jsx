@@ -2,55 +2,71 @@ import { useState } from "react";
 import "./App.css";
 import MapView from "./mapview";
 import ntpcLogo from "./assets/logo.png";
+import {
+  FaBuilding,
+  FaCar,
+  FaFileAlt,
+  FaLaptopCode
+} from "react-icons/fa";
 
 function App() {
   const [destination, setDestination] = useState(null);
-
+  const [theme, setTheme] = useState("dark");
   const locations = [
     {
       id: "admin1",
       name: "Samanvay",
-      icon: "🏢",
+      icon: <FaBuilding />,
     }, 
     {
       id: "admin2",
       name: "Saavyas",
-      icon: "🏢",
+      icon: <FaBuilding />,
     },
     {
       id: "Documentation",
       name: "Documentation",
-      icon: "📑",
+      icon: <FaFileAlt />,
     },
     {
       id: "it",
       name: "IT & Comm.",
-      icon: "💻",
+      icon: <FaLaptopCode />,
     },
     {
       id: "parking1",
       name: "Parking 1",
-      icon: "🅿️",
+      icon: <FaCar />,
     },
     {
       id: "parking2",
       name: "Parking 2",
-      icon: "🅿️",
+      icon: <FaCar />,
     },
   ];
 
   if (destination) {
     return (
       <MapView
-        destination={destination}
-        onBack={() => setDestination(null)}
-      />
+    destination={destination}
+    onBack={() => setDestination(null)}
+    theme={theme}
+    setTheme={setTheme}
+/>
     );
   }
 
   return (
-    <div className="app">
+    <div className={`app ${theme}`}>
       <div className="container">
+        <button
+          className="theme-toggle"
+            onClick={() =>
+              setTheme(theme === "dark" ? "light" : "dark")
+            }
+        >
+  {theme === "dark" ? "☀️" : "🌙"}
+</button>
         <div className="logo-container">
           <img
             src={ntpcLogo}
