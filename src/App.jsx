@@ -1,16 +1,33 @@
+import { areas } from "./data";
 import { useState, useEffect } from "react";
 import "./App.css";
-import MapView from "./mapview";
+import MapView from "./components/mapview";
 import ntpcLogo from "./assets/logo.png";
 import {
   FaBuilding,
   FaCar,
   FaFileAlt,
-  FaLaptopCode
+  FaLaptopCode,
+  FaIndustry,
+  FaBolt,
+  FaSolarPanel,
+  FaDoorOpen,
+  FaTruckMoving,
+  FaSchool,
+  FaHospital,
+  FaTree,
+  FaHotel,
+  FaUsers,
+  FaHome,
+  FaSearch
 } from "react-icons/fa";
+
+
 
 function App() {
   const [destination, setDestination] = useState(null);
+  const [selectedArea, setSelectedArea] = useState("administration");
+  const [searchTerm, setSearchTerm] = useState("");
   const [theme, setTheme] = useState("dark");
   useEffect(() => {
   const handleBack = () => {
@@ -23,8 +40,10 @@ function App() {
     window.removeEventListener("popstate", handleBack);
   };
 }, []);
-  const locations = [
-    {
+  const locations = {
+
+    administration:[
+      {
       id: "admin1",
       name: "Samanvay",
       icon: <FaBuilding />,
@@ -54,30 +73,156 @@ function App() {
       name: "Parking 2",
       icon: <FaCar />,
     },
-  ];
-  useEffect(() => {
-  const handleBack = () => {
-    setDestination(null);
-  };
+    ],
 
-  window.addEventListener("popstate", handleBack);
-
-  return () => {
-    window.removeEventListener("popstate", handleBack);
-  };
-}, []);
-
-  if (destination) {
-    return (
-      <MapView
-    destination={destination}
-    onBack={() => window.history.back()}
-    theme={theme}
-    setTheme={setTheme}
-/>
-    );
+   powerPlant: [
+  {
+    id: "unit1",
+    name: "Unit 1",
+    icon: <FaIndustry />,
+    departments: []
+  },
+  {
+    id: "unit2",
+    name: "Unit 2",
+    icon: <FaIndustry />,
+    departments: []
+  },
+  {
+    id: "unit3",
+    name: "Unit 3",
+    icon: <FaIndustry />,
+    departments: []
+  },
+  {
+    id: "unit4",
+    name: "Unit 4",
+    icon: <FaIndustry />,
+    departments: []
+  },
+  {
+    id: "switchyard",
+    name: "Switch Yard",
+    icon: <FaBolt />,
+    departments: []
+  },
+  {
+    id: "sankalp1",
+    name: "Sankalp 1",
+    icon: <FaBuilding />,
+    departments: []
+  },
+  {
+    id: "sankalp2",
+    name: "Sankalp 2",
+    icon: <FaBuilding />,
+    departments: []
+  },
+  {
+    id: "chp",
+    name: "CHP",
+    icon: <FaTruckMoving />,
+    departments: []
+  },
+  {
+    id: "solar",
+    name: "Solar Plant",
+    icon: <FaSolarPanel />,
+    departments: []
+  },
+  {
+    id: "maingate",
+    name: "Main Gate",
+    icon: <FaDoorOpen />,
+    departments: []
+  },
+  {
+    id: "ich",
+    name: "Indian Coffee House",
+    icon: <FaUsers />,
+    departments: ["Canteen"]
   }
+],
 
+    township: [
+  {
+    id: "school",
+    name: "School",
+    icon: <FaSchool />,
+    departments: []
+  },
+  {
+    id: "hospital",
+    name: "Hospital",
+    icon: <FaHospital />,
+    departments: []
+  },
+  {
+    id: "sarovarpark",
+    name: "Sarovar Park",
+    icon: <FaTree />,
+    departments: []
+  },
+  {
+    id: "saradaguesthouse",
+    name: "Sarada Guest House",
+    icon: <FaHotel />,
+    departments: []
+  },
+  {
+    id: "sanjeevaniguesthouse",
+    name: "Sanjeevani Guest House",
+    icon: <FaHotel />,
+    departments: []
+  },
+  {
+    id: "sagarikaguesthouse",
+    name: "Sagarika Guest House",
+    icon: <FaHotel />,
+    departments: []
+  },
+  {
+    id: "rli",
+    name: "RLI",
+    icon: <FaBuilding />,
+    departments: []
+  },
+  {
+    id: "tarangamclub",
+    name: "Tarangam Club",
+    icon: <FaUsers />,
+    departments: []
+  }
+],
+
+};
+  const currentAreaData = areas[selectedArea];
+
+  const filteredLocations = locations[selectedArea].filter((loc) => {
+  // Search building name
+  const buildingMatch = loc.name
+    .toLowerCase()
+    .includes(searchTerm.toLowerCase());
+
+  // Search departments inside the building
+  const departmentMatch =
+  currentAreaData.departments[loc.id]?.some((dept) =>
+    dept.toLowerCase().includes(searchTerm.toLowerCase())
+  ) || false;
+
+  return buildingMatch || departmentMatch;
+});
+  if (destination) {
+  return (
+    <MapView
+      area={selectedArea}
+      destination={destination}
+      onBack={() => window.history.back()}
+      theme={theme}
+      setTheme={setTheme}
+    />
+  );
+}
   return (
     <div className={`app ${theme}`}>
       <div className="container">
@@ -100,10 +245,55 @@ function App() {
           NTPC Simhadri Navigation
            
         </h1>
-        <h1 className="navigation-title">Administration Block</h1>
+  
+  {/* Search Bar */}
+<div className="search-container">
+  <div className="search-wrapper">
+    <FaSearch className="search-icon" />
+    <input
+      type="text"
+      className="search-box"
+      placeholder="Search Building or Department"
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+    />
+  </div>
+</div>
+
+{/* Area Buttons */}
+<div className="area-selector">
+
+  <button
+    className={selectedArea === "administration" ? "active-area" : ""}
+    onClick={() => setSelectedArea("administration")}
+  >
+    <FaBuilding className="area-icon" />
+    <span>Administration</span>
+  </button>
+
+  <button
+    className={selectedArea === "powerPlant" ? "active-area" : ""}
+    onClick={() => setSelectedArea("powerPlant")}
+  >
+    <FaIndustry className="area-icon" />
+    <span>Power Plant</span>
+  </button>
+
+  <button
+    className={selectedArea === "township" ? "active-area" : ""}
+    onClick={() => setSelectedArea("township")}
+  >
+    <FaHome className="area-icon" />
+    <span>Township</span>
+  </button>
+
+</div>
+
+
+
 
         <div className="tiles">
-          {locations.map((loc, index) => (
+        {filteredLocations.map((loc, index) => (
             <div
               key={loc.id}
               className="tile"
