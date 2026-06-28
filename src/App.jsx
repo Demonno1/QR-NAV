@@ -19,16 +19,60 @@ import {
   FaHotel,
   FaUsers,
   FaHome,
-  FaSearch
+  FaSearch,
+  FaMicrophone,
+  FaTimes,
+  FaHardHat
 } from "react-icons/fa";
 
 
 
 function App() {
+  const [isListening, setIsListening] = useState(false);
   const [destination, setDestination] = useState(null);
   const [selectedArea, setSelectedArea] = useState("administration");
   const [searchTerm, setSearchTerm] = useState("");
   const [theme, setTheme] = useState("dark");
+  const startListening = () => {
+
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    alert("Your browser doesn't support Voice Search.");
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+
+  recognition.lang = "en-IN";
+  recognition.continuous = true;
+recognition.interimResults = true;
+recognition.maxAlternatives = 1;
+
+  setIsListening(true);
+
+  recognition.start();
+
+  recognition.onresult = (event) => {
+  const transcript =
+    event.results[event.results.length - 1][0].transcript;
+    setSearchTerm(transcript);
+
+  recognition.stop();
+};
+
+  recognition.onerror = (event) => {
+  console.log("Speech Error:", event.error);
+  console.log(event);
+
+  setIsListening(false);
+};
+
+  recognition.onend = () => {
+    setIsListening(false);
+  };
+};
   useEffect(() => {
   const handleBack = () => {
     setDestination(null);
@@ -131,9 +175,9 @@ function App() {
     departments: []
   },
   {
-    id: "maingate",
-    name: "Main Gate",
-    icon: <FaDoorOpen />,
+    id: "safetypark",
+    name: "Safety Park",
+    icon: <FaHardHat />,
     departments: []
   },
   {
@@ -249,48 +293,74 @@ function App() {
   {/* Search Bar */}
 <div className="search-container">
   <div className="search-wrapper">
+
     <FaSearch className="search-icon" />
+
     <input
       type="text"
       className="search-box"
-      placeholder="Search Building or Department"
+      placeholder={
+        isListening
+          ? "Listening..."
+          : "Search"
+      }
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
     />
+
+    {searchTerm && (
+  <button
+    className="clear-btn"
+    onClick={() => setSearchTerm("")}
+    title="Clear search"
+  >
+    <FaTimes />
+  </button>
+)}
+
+<button
+  className={`mic-btn ${isListening ? "listening" : ""}`}
+  onClick={startListening}
+  title="Voice Search"
+>
+  <FaMicrophone />
+</button>
+
   </div>
 </div>
 
 {/* Area Buttons */}
 <div className="area-selector">
 
-  <button
-    className={selectedArea === "administration" ? "active-area" : ""}
-    onClick={() => setSelectedArea("administration")}
-  >
-    <FaBuilding className="area-icon" />
-    <span>Administration</span>
-  </button>
-
-  <button
-    className={selectedArea === "powerPlant" ? "active-area" : ""}
-    onClick={() => setSelectedArea("powerPlant")}
-  >
-    <FaIndustry className="area-icon" />
-    <span>Power Plant</span>
-  </button>
-
-  <button
-    className={selectedArea === "township" ? "active-area" : ""}
-    onClick={() => setSelectedArea("township")}
-  >
-    <FaHome className="area-icon" />
-    <span>Township</span>
-  </button>
+    <button
+  className={`plant-btn ${selectedArea === "powerPlant" ? "active-area" : ""}`}
+  onClick={() => setSelectedArea("powerPlant")}
+>
+  <FaIndustry className="area-icon" />
+  <span>Power Plant</span>
+</button>
 
 </div>
 
+<div className="area-selector second-row">
 
+    <button
+      className={` ${selectedArea === "administration" ? "active-area" : ""}`}
+      onClick={() => setSelectedArea("administration")}
+    >
+      <FaBuilding className="area-icon" />
+      Administration
+    </button>
 
+    <button
+  className={selectedArea === "township" ? "active-area" : ""}
+  onClick={() => setSelectedArea("township")}
+>
+  <FaHome className="area-icon" />
+  <span>Township</span>
+</button>
+
+</div>
 
         <div className="tiles">
         {filteredLocations.map((loc, index) => (

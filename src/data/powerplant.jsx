@@ -15,7 +15,7 @@ export const powerPlantData = {
     sankalp2: [],
     chp: [],
     solar: [],
-    maingate: [],
+    safetypark: [],
     ich: []
   },
 
