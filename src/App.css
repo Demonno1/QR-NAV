@@ -694,7 +694,7 @@ body, #root
     display:flex;
     justify-content:center;
     gap:12px;
-    margin-top:18px;
+    margin: 20px 0;
 }
 
 .second-row

@@ -44,47 +44,56 @@ function App() {
   }
 
   const recognition = new SpeechRecognition();
-
+  recognition.lang = "en-US";
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+  recognition.onstart = () => 
+  {
+    recognition.onspeechstart = () => {};
+    setIsListening(true);
+  };
   recognition.lang = "en-IN";
   recognition.continuous = true;
-recognition.interimResults = true;
-recognition.maxAlternatives = 1;
-
+  recognition.interimResults = true;
+  recognition.maxAlternatives = 1;
   setIsListening(true);
-
   recognition.start();
-
-  recognition.onresult = (event) => {
-  const transcript =
+  recognition.onresult = (event) => 
+  {
+    const transcript =
     event.results[event.results.length - 1][0].transcript;
     setSearchTerm(transcript);
+    recognition.stop();
+  };
 
-  recognition.stop();
-};
-
-  recognition.onerror = (event) => {
+  recognition.onerror = (event) => 
+  {
   console.log("Speech Error:", event.error);
   console.log(event);
-
   setIsListening(false);
-};
-
-  recognition.onend = () => {
+  };
+  recognition.onend = () => 
+  {
     setIsListening(false);
   };
 };
-  useEffect(() => {
-  const handleBack = () => {
-    setDestination(null);
+useEffect(() => 
+{
+  const handleBack = () => 
+  {
+  setDestination(null);
   };
 
   window.addEventListener("popstate", handleBack);
 
-  return () => {
+  return () => 
+  {
     window.removeEventListener("popstate", handleBack);
   };
 }, []);
-  const locations = {
+  const locations = 
+  {
 
     administration:[
       {
